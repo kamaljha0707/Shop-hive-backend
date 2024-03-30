@@ -18,6 +18,10 @@ app.use(express.static(("public")))
 import productRouter from './routes/product.routes.js'
 import brandRouter from './routes/brand.routes.js'
 import categoryRouter from './routes/category.routes.js'
+import authRouter from "./routes/auth.routes.js"
+import userRouter from "./routes/user.routes.js"
+import cartRouter from "./routes/cart.routes.js"
+
 
 
 //declration
@@ -25,6 +29,9 @@ import categoryRouter from './routes/category.routes.js'
  app.use("/", productRouter)
  app.use("/brands", brandRouter)
  app.use("/categories", categoryRouter)
+ app.use("/auth", authRouter)
+ app.use("/user", userRouter)
+ app.use("/cart", cartRouter)
 
 
 
