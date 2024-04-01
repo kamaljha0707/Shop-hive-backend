@@ -52,7 +52,7 @@ const updateCart = asyncHandler(async(req, res)=>{
         const cart = await  Cart.findByIdAndUpdate(cartId , req.body , {new: true})
         let result =  await cart.populate('product')
         return res.status(201).json(
-            new ApiResponse(200, cart, 'cart update successfully!')
+            new ApiResponse(200, result, 'cart update successfully!')
         )
     } catch (error) {
             throw new ApiError(500, "getting error while updating cart !!")
@@ -62,4 +62,4 @@ const updateCart = asyncHandler(async(req, res)=>{
 })
 
 
-export {addToCart, fetchCartByUserId}
+export {addToCart, fetchCartByUserId, deleteFromCart, updateCart}
