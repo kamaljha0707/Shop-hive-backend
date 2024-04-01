@@ -32,33 +32,34 @@ const fetchCartByUserId = asyncHandler(async(req, res)=>{
     }
 })
 
-// const deleteFromCart = asyncHandler(async(req, res)=>{
-//     const {cartId}  = req.params
-//       let cart = await Cart.findByIdAndDelete(cartId)
-//             try {
-//                 return res.status(200).json(
-//                     new ApiResponse(200, cart, "cart item deleted successfully!!")
-//                 )
-//             } catch (error) {
-//                 return new ApiError(500, 'getting error while deleting cart item')
-//             }
+const deleteFromCart = asyncHandler(async(req, res)=>{
+    const {cartId}  = req.params
+      let cart = await Cart.findByIdAndDelete(cartId)
+            try {
+                return res.status(200).json(
+                    new ApiResponse(200, cart, "cart item deleted successfully!!")
+                )
+            } catch (error) {
+                return new ApiError(500, 'getting error while deleting cart item')
+            }
 
-// })
+})
 
-// const updateCart = asyncHandler(async(req, res)=>{
-//     const {cartId}  = req.params
+const updateCart = asyncHandler(async(req, res)=>{
+    const {cartId}  = req.params
     
-//     const cart = await  Cart.findByIdAndUpdate(cartId , req.body , {new: true})
-//     try {
-//         return res.status(201).json(
-//             new ApiResponse(200, cart, 'cart update successfully!')
-//         )
-//     } catch (error) {
-//             throw new ApiError(500, "getting error while updating cart !!")
-//     }
+    try {
+        const cart = await  Cart.findByIdAndUpdate(cartId , req.body , {new: true})
+        let result =  await cart.populate('product')
+        return res.status(201).json(
+            new ApiResponse(200, cart, 'cart update successfully!')
+        )
+    } catch (error) {
+            throw new ApiError(500, "getting error while updating cart !!")
+    }
 
 
-// })
+})
 
 
 export {addToCart, fetchCartByUserId}

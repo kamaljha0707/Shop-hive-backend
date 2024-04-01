@@ -21,6 +21,7 @@ import categoryRouter from './routes/category.routes.js'
 import authRouter from "./routes/auth.routes.js"
 import userRouter from "./routes/user.routes.js"
 import cartRouter from "./routes/cart.routes.js"
+import orderRouter from "./routes/order.routes.js"
 
 
 
@@ -32,6 +33,7 @@ import cartRouter from "./routes/cart.routes.js"
  app.use("/auth", authRouter)
  app.use("/user", userRouter)
  app.use("/cart", cartRouter)
+ app.use("/orders", orderRouter)
 
 
 
