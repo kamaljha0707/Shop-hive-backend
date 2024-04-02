@@ -54,10 +54,33 @@ const updateOrder = asyncHandler(async(req, res)=>{
     } catch (error) {
             throw new ApiError(500, "getting error while updating user order !!")
     }
+})
+
+const fetchAllOrders = asyncHandler(async(req, res)=>{
+
+    let  query = Order.find({})
+    let totalOrderQuery = Order.find({deleted: {$ne: true}})
+    if(req.query._page && req.query._limit){
+        const page = req.query._page;
+       const  pageSize = req.query_limit;
+        query = query.skip(pageSize*(page-1)).limit(pageSize)
+    }
+
+        const totalOrder = await totalOrderQuery.count().exec()
+        const orders = await query.exec();
+
+         try {
+            res.set('X-Total-Count', totalOrder)
+            return res.status(200).json(
+                new ApiResponse(200, orders, "all order feteched successfully!!")
+            )
+         } catch (error) {
+            throw new ApiError(500, "getting error while fetching orders !!")
+        }
 
 
 })
 
 
 
-export {createOrder , fetchOrderByUser, deleteOrder, updateOrder}
+export {createOrder , fetchOrderByUser, deleteOrder, updateOrder, fetchAllOrders}

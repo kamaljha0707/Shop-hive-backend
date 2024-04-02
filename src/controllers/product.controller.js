@@ -32,9 +32,13 @@ const createProduct = asyncHandler(async(req, res)=>{
 })
 
 const fetchAllProducts = asyncHandler(async(req, res)=>{
+    let condition = {}
+    if(!req.query.admin){
+        condition.deleted = {$ne:true}
+    }
 
-    let  query = Product.find({})
-    let totalProductQuery = Product.find({})
+    let  query = Product.find(condition)
+    let totalProductQuery = Product.find(condition)
 
 
     if(req.query.brand){
@@ -107,6 +111,7 @@ const updateProduct = asyncHandler(async(req, res)=>{
 
 
 })
+
 
 
 export {createProduct, fetchAllProducts, fetchProductById, updateProduct }
