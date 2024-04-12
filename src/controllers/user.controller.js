@@ -6,30 +6,23 @@ import { isValidObjectId } from 'mongoose'
 
 
 const fetchUserById = asyncHandler(async(req, res)=>{
-    const {userId} = req.params
-    const user = await  User.findByIdAndUpdate(userId, 'name email id')
+    const  id  = req.user;
     try {
-        return res.status(201).json(
-            new ApiResponse(200, user, 'user created successfully!')
-        )
-    } catch (error) {
-            throw new ApiError(500, "getting error while creating user !!")
+      const user = await User.findById(id);
+      res.status(200).json({id:user.id,addresses:user.addresses,email:user.email,role:user.role});
+    } catch (err) {
+      res.status(400).json(err);
     }
-
 })
 
-const updateUser = asyncHandler(async(req, res)=>{
-    const {userId} = req.params
-    const user = await  User.findByIdAndUpdate(userId, req.body, {new: true})
-    try {
-        return res.status(201).json(
-            new ApiResponse(200, user, 'user update successfully!')
-        )
-    } catch (error) {
-            throw new ApiError(500, "getting error while updating  user !!")
-    }
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await User.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).json({id:user.id,addresses:user.addresses,email:user.email,role:user.role});
+  } catch (err) {
+    res.status(400).json(err);
+  }
+};
 
-
-})
-
-export {updateUser, fetchUserById}
+export {fetchUserById, updateUser}

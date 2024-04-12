@@ -6,29 +6,27 @@ import { User } from '../models/user.model.js'
 
 
 const addToCart = asyncHandler(async(req, res)=>{
-
-    const   cart  = new Cart(req.body)
-      let doc = await cart.save()
-         let result =  await doc.populate('product')
-            return res.status(200).json(
-                new ApiResponse(200, result, "cart feteched successfully!!")
-            )
-
+  const user = req.user;
+  const cart = new Cart({...req.body,user: user._id});
+  try {
+    const doc = await cart.save();
+    const result = await doc.populate('product');
+    res.status(201).json(result);
+  } catch (err) {
+    res.status(400).json(err);
+  }
 })
 
 
 const fetchCartByUserId = asyncHandler(async(req, res)=>{
 
-    let  {user} = req.query
-
+    const  user  = req.user;
     try {
-    const cartItems = await Cart.find({user:user}).populate('product');
-
-        return res.status(200).json(
-            new ApiResponse(200, cartItems, "feteched user cart  successfully!!")
-        )
-     } catch (error) {
-        throw new ApiError(500, "getting error while fetching user cart !!")
+      const cartItems = await Cart.find({ user: user._id }).populate('product');
+  
+      res.status(200).json(cartItems);
+    } catch (err) {
+      res.status(400).json(err);
     }
 })
 
@@ -47,7 +45,7 @@ const deleteFromCart = asyncHandler(async(req, res)=>{
 
 const updateCart = asyncHandler(async(req, res)=>{
     const {cartId}  = req.params
-    
+    console.log(req.body);
     try {
         const cart = await  Cart.findByIdAndUpdate(cartId , req.body , {new: true})
         let result =  await cart.populate('product')
