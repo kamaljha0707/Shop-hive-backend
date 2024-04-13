@@ -84,15 +84,15 @@ const loginUser = asyncHandler(async(req, res)=>{
     return res.status(200)
     .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
-    .json(
-        new ApiResponse(200, loggedInUser, 'User LoggedIn successfully!')
-    )
+    .json( {id: loggedInUser.id , role:loggedInUser.role})
 
 })
 
 const checkAuth = async (req, res) => {
-    if (req.user) {
-      res.json(req.user);
+    const user = req.user
+    if (user) {
+        return res.status(200)
+        .json( {id: user.id , role:user.role})
     } else {
       res.sendStatus(401);
     }

@@ -9,7 +9,7 @@ export const verifyJWT = asyncHandler(async(req, res , next)=>{
     try {
 
     //    const token =  req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
-         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE2OWFiY2ViN2UyMWMxY2M2MWMyNjkiLCJlbWFpbCI6InVzZXJrYW1hbDA3amhhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzEyODU2MjQxLCJleHAiOjE3MTI5NDI2NDF9.E2jBDsLVT1ZESoqv6q1CQZ4GYr_z3HaC_lkiCGC0BHQ"
+         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE2OWFiY2ViN2UyMWMxY2M2MWMyNjkiLCJlbWFpbCI6InVzZXJrYW1hbDA3amhhQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzEzMDE5MzIyLCJleHAiOjE3MTMxMDU3MjJ9.sqnaL_TjSIQbBl1D3visDRgro8s1HEMEiWxeWSg7prQ"
     if(!token){
         throw new ApiError(401, "unauthorizated ruquest")
        }
