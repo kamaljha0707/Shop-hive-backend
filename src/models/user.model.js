@@ -10,7 +10,8 @@ const userSchema = new Schema(
     password: {type: String, required: true},
     name: { type: String },
     orders : {type: [Schema.Types.Mixe]},
-    refreshToken:{type: String}
+    refreshToken:{type: String},
+    resetPasswordToken: {type:String, default: ''}
    }
 )
 
@@ -50,6 +51,7 @@ userSchema.methods.generateRefreshToken =  function(){
     }
    ) 
 }
+
 
 
 

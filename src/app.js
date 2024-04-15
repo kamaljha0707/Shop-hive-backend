@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
-
+import nodemailer from "nodemailer"
 
 const app = express()
 
@@ -41,6 +41,15 @@ import orderRouter from "./routes/order.routes.js"
 
 
 
-
-
 export {app}
+
+
+// const transporter = nodemailer.createTransport({
+//     host: "smtp.gmail.com",
+//     port: 587,
+//     secure: false, // Use `true` for port 465, `false` for all other ports
+//     auth: {
+//       user: process.env.GMAIL,
+//       pass: process.env.MAIL_PASSWORD,
+//     },
+//   });
