@@ -12,7 +12,8 @@ const userSchema = new Schema(
     orders : {type: [Schema.Types.Mixe]},
     refreshToken:{type: String},
     resetPasswordToken: {type:String, default: ''}
-   }
+},
+{timestamps: true}
 )
 
 userSchema.pre("save", async function(next) {

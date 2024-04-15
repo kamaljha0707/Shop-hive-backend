@@ -11,7 +11,8 @@ const orderSchema = new Schema(
        status:  {type: String, require: true, default: 'pending'},
        selectedAddress : {type: Schema.Types.Mixed, require : true},
 
-    }
+    },
+    {timestamps: true}
     )
 
 

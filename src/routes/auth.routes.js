@@ -8,7 +8,7 @@ router.route("/signup").post(createUser)
 router.route('/login').post( loginUser);
 
 // secured routes
-router.route('/logout').post(verifyJWT, logoutUser);
+router.route('/logout').get(verifyJWT,  logoutUser);
 router.route('/refresh-token').post(refreshAccessToken);
 router.route('/check').get(verifyJWT, checkAuth);
 router.route('/reset-password-request/').post(resetPasswordRequest);

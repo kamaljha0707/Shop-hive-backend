@@ -101,26 +101,30 @@ const checkAuth = async (req, res) => {
 };
 
 const logoutUser = asyncHandler(async (req, res) => {
-    await User.findByIdAndUpdate(
-        req.user._id, {
-        $unset: {
-            refreshToken: 1
-        }
-    },
-        { new: true }
-    )
+    try {
+        const { id } = req.user;
 
-    const options = {
-        httpOnly: true,
-        secure: true
+        const user = await User.findByIdAndUpdate(
+            id,
+            { $unset: { refreshToken: 1 } },
+            { new: true }
+        );
+        const options = {
+            httpOnly: true,
+            secure: true
+        };
+
+        res.setHeader('Cache-Control', 'no-store');
+
+        res.clearCookie("accessToken", options);
+        res.clearCookie("refreshToken", options);
+        res.sendStatus(200); // Send a 200 OK status
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Internal Server Error" }); // Handle any errors
     }
-    return res
-        .status(200)
-        .clearCookie("accessToken", options)
-        .clearCookie("refreshToken", options)
-        .json(new ApiResponse(200, {}, "User logged out"))
-})
-
+});
 
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
