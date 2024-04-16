@@ -3,6 +3,8 @@ import {asyncHandler} from '../utils/asyncHandler.js'
 import {ApiResponse} from "../utils/ApiResponse.js"
 import {ApiError} from "../utils/ApiError.js"
 import { User } from '../models/user.model.js'
+import { invoiceTemplate } from '../middlewares/services/common.js';
+import sendMail from '../middlewares/services/common.js'
 
 
 const createOrder = asyncHandler(async(req, res)=>{
@@ -10,10 +12,10 @@ const createOrder = asyncHandler(async(req, res)=>{
     const   order  = new Order(req.body)
     try {
         const doc = await order.save();
-         // we can use await for this also 
-        //  sendMail({to:user.email,html:invoiceTemplate(order),subject:'Order Received' })
-               
+        const user = await User.findById(order.user)
+         // we can use await for this also   
         res.status(201).json(doc);
+        await sendMail({to:user.email,html:invoiceTemplate(order),subject:`Your shophive order # ${order._id} of ${order.totalItems} item` })
       } catch (err) {
         res.status(400).json(err);
       }

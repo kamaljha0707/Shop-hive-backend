@@ -5,7 +5,7 @@ import {ApiError} from "../utils/ApiError.js"
 import { isValidObjectId } from 'mongoose'
 
 const createProduct = asyncHandler(async(req, res)=>{
-    const {title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images, deleted} = req.body
+    const {title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images, sizes, deleted, colors, highlight} = req.body
     
     const createProduct = await  Product.create({
         title,
@@ -18,7 +18,10 @@ const createProduct = asyncHandler(async(req, res)=>{
         category,
         thumbnail,
         images,
-        deleted
+        colors,
+        sizes,
+        deleted,
+        highlight
     })
     try {
         return res.status(201).json(

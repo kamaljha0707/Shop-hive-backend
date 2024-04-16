@@ -12,10 +12,12 @@ const productSchema = new Schema(
     category: {type : String , required : true},
     thumbnail: {type : String , required : true},
     images: { type : [String] , required : true},
+    highlight: { type : [String]},
+    colors:{ type : [Schema.Types.Mixed] },
+    sizes:{ type : [Schema.Types.Mixed]},
     deleted: { type : Boolean , default : false},
 }
 )
-
 
 
 

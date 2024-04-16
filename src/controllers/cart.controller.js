@@ -45,7 +45,6 @@ const deleteFromCart = asyncHandler(async(req, res)=>{
 
 const updateCart = asyncHandler(async(req, res)=>{
     const {cartId}  = req.params
-    console.log(req.body);
     try {
         const cart = await  Cart.findByIdAndUpdate(cartId , req.body , {new: true})
         let result =  await cart.populate('product')

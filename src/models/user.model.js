@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 const userSchema = new Schema(
     {
     email : {type : String, required: true, unique: true},
-    addresses : {type: [Schema.Types.Mixe], required: true},
+    addresses : {type: [Schema.Types.Mixed], required: true},
     role: {type :String , required : true, default: 'user'},
     password: {type: String, required: true},
     name: { type: String },
