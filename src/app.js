@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import nodemailer from "nodemailer"
+import path from 'path'
 
 const app = express()
 
@@ -13,7 +14,11 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json({limit:'16kb'}))
 app.use(express.urlencoded({extended: true, limit: '16kb'}))
-app.use(express.static(("dist")))
+app.use(express.static(path.join( 'dist')));
+
+// app.get('*', (req, res) =>
+//   res.sendFile(path.resolve('dist', 'index.html'))
+// );
 
 
 
@@ -44,12 +49,3 @@ import orderRouter from "./routes/order.routes.js"
 export {app}
 
 
-// const transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     secure: false, // Use `true` for port 465, `false` for all other ports
-//     auth: {
-//       user: process.env.GMAIL,
-//       pass: process.env.MAIL_PASSWORD,
-//     },
-//   });

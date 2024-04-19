@@ -8,8 +8,8 @@ export const verifyJWT = asyncHandler(async(req, res , next)=>{
 
     try {
 
-    //    const token =  req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
-         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjE2NzI3ZDE2OTc4Yzk5MTA0ZWY5YmQiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTcxMzI0NTMwOSwiZXhwIjoxNzEzMzMxNzA5fQ.u_ZRXreOtT0TKNXN4Q_L43zSObbOmrUjH5xajQF0huU"
+       const token =  req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
+        //  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjFjMTVjODY4NmU1OTU1OTI2YjliMTUiLCJlbWFpbCI6InVzZXJrYW1hbGpoYUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MTM0NTQ3NjEsImV4cCI6MTcxMzU0MTE2MX0.l8c58ZsYLsl6_db6oYkw-m81zIsQjz_KQ4qFhi4_MOM"
     if(!token){
         throw new ApiError(401, "unauthorizated ruquest")
        }

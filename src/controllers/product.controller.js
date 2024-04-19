@@ -5,8 +5,8 @@ import {ApiError} from "../utils/ApiError.js"
 import { isValidObjectId } from 'mongoose'
 
 const createProduct = asyncHandler(async(req, res)=>{
-    const {title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images, sizes, deleted, colors, highlight} = req.body
-    
+    const {title, description, price, discountPrice ,discountPercentage, rating, stock, brand, category, thumbnail, images, sizes, deleted, colors, highlight} = req.body
+    const calculatedDiscountPrice = Math.round(price * (1 - discountPercentage / 100));
     const createProduct = await  Product.create({
         title,
         description,
@@ -21,8 +21,8 @@ const createProduct = asyncHandler(async(req, res)=>{
         colors,
         sizes,
         deleted,
-        highlight
-    })
+        highlight,
+        discountPrice :calculatedDiscountPrice})
     try {
         return res.status(201).json(
             new ApiResponse(200, createProduct, 'product created successfully!')
@@ -102,9 +102,11 @@ const updateProduct = asyncHandler(async(req, res)=>{
     const {productId}  = req.params
     
     const product = await  Product.findByIdAndUpdate(productId , req.body , {new: true})
+    product.discountPrice = Math.round(product.price * (1 - product.discountPercentage / 100));
+    const updateProduct = await product.save()
     try {
         return res.status(201).json(
-            new ApiResponse(200, product, 'product update successfully!')
+            new ApiResponse(200, updateProduct, 'product update successfully!')
         )
     } catch (error) {
             throw new ApiError(500, "getting error while creating product !!")

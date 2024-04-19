@@ -6,6 +6,7 @@ const productSchema = new Schema(
     description: {type :String , required : true},
     price: {type :Number , min: [0 , 'wrong min price'],max: [1000000 , 'wrong max  price'],  required : true},
     discountPercentage: {type : Number , required : true},
+    discountPrice: {type : Number , required : true},
     rating: {type :Number ,  required : true},
     stock: {type : Number , required : true},
     brand: {type : String , required : true},
