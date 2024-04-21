@@ -1,9 +1,6 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import path from "path";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 
 // Import routes
 import productRouter from "./routes/product.routes.js";
@@ -14,7 +11,6 @@ import userRouter from "./routes/user.routes.js";
 import cartRouter from "./routes/cart.routes.js";
 import orderRouter from "./routes/order.routes.js";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 // Serve static files from the 'public' directory
@@ -54,4 +50,4 @@ app.use("/orders", orderRouter);
 //   res.sendFile(indexPath);
 // });
 
-export { app };
+export default app;
