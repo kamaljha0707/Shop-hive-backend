@@ -18,10 +18,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 // Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, '..', 'dist')));
+// app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // Enable CORS
 app.use(cors({
@@ -49,9 +49,9 @@ app.use("/cart", cartRouter);
 app.use("/orders", orderRouter);
 
 // Serve index.html for all other routes
-app.get('/*', (req, res) => {
-  const indexPath = path.resolve(__dirname, '..', 'dist', 'index.html');
-  res.sendFile(indexPath);
-});
+// app.get('/*', (req, res) => {
+//   const indexPath = path.resolve(__dirname, '..', 'dist', 'index.html');
+//   res.sendFile(indexPath);
+// });
 
 export { app };
