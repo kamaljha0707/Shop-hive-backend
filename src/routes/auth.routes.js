@@ -10,7 +10,7 @@ router.route('/login').post( loginUser);
 // secured routes
 router.route('/logout').get(verifyJWT,  logoutUser);
 router.route('/refresh-token').post(refreshAccessToken);
-router.route('/check').get(verifyJWT, checkAuth);
+router.route('/check').get( checkAuth);
 router.route('/reset-password-request/').post(resetPasswordRequest);
 router.route('/reset-password/').post(resetPassword);
 
