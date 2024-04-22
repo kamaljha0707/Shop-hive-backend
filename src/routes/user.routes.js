@@ -4,8 +4,7 @@ import { verifyJWT } from "../middlewares/auth.middlewares.js";
 
 const router = Router()
 
-router.route("/own")
-.get(fetchUserById)
+router.route("/own").get(verifyJWT, fetchUserById)
 router.route("/:id").patch( updateUser)
 
 

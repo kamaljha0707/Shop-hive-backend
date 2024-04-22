@@ -5,7 +5,7 @@ import { verifyJWT } from "../middlewares/auth.middlewares.js";
 const router = Router()
 
 router.route("/").post(createOrder).get(fetchAllOrders)
-router.route("/own").get(fetchOrderByUser)
+router.route("/own").get(verifyJWT ,fetchOrderByUser)
 router.route("/:orderId").delete(deleteOrder).patch(updateOrder)
 
 
