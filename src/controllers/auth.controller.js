@@ -41,14 +41,22 @@ try {
         const createdUser = await User.findById(docs._id).select(
             "-password "
         )
-    
+         console.log(createUser);
         if (!createdUser) {
             throw new ApiError(500, "getting error while registering the user")
         }
     
-        return res.status(201).json(
-            new ApiResponse(200, createdUser, 'user created successfully!')
-        )
+      const { accessToken, refreshToken } = await generateAccessTokenAndRefreshToken(createdUser._id)
+         
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+        return res.status(200)
+         .cookie("accessToken", accessToken, options)
+         .cookie("refreshToken", refreshToken, options)
+         .json({ id: createdUser.id, role: createdUser.role })
+
       } catch (error) {
         res.status(400)
         .json(error.message)
@@ -181,7 +189,7 @@ const resetPasswordRequest = async (req, res) => {
 
     // Also set token in email
     const resetPageLink =
-        '/reset-password?token=' + token + '&email=' + email;
+        'https://shop-hive-backend-1.onrender.com/reset-password?token=' + token + '&email=' + email;
     const subject = 'reset password for e-commerce';
     const html = `<p>Click <a href='${resetPageLink}'>here</a> to Reset Password</p>`;
 
